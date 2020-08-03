@@ -18,7 +18,7 @@ namespace MvvmDemo.ViewModels {
 
         public static MainViewModel Current => Ioc.Default.GetService<MainViewModel>();
 
-        
+
         private readonly ILogger _logger;
 
         public ObservableCollection<Employee> Employees { get; } = new ObservableCollection<Employee>();
@@ -37,19 +37,17 @@ namespace MvvmDemo.ViewModels {
         }
 
         private async Task OnDelete(Employee emp) {
-            if (emp is object) {
-                if (await Messenger.Default.Send(new AsyncYesNoMessage($"Delete {emp.Name}?")).Response) {
-                    _logger.Log($"Delete: {emp.Name}");
-                    Employees.Remove(emp);
-                }
+            if (await Messenger.Default.Send(new AsyncYesNoMessage($"Delete {emp.Name}?"))) {
+                _logger.Log($"Delete: {emp.Name}");
+                Employees.Remove(emp);
             }
         }
 
         private void OnRaiseSalary(Employee emp) {
-            if (emp is object) {
-                _logger.Log($"OnRaiseSalary: {emp.Name}");
-                emp.Salary += 100;
-            }
+            _logger.Log($"OnRaiseSalary: {emp.Name}");
+            emp.Salary += 100;
         }
     }
+
+
 }

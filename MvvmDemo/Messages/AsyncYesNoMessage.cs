@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 
 namespace MvvmDemo.Messages {
-    public sealed class AsyncYesNoMessage : RequestMessage<Task<bool>> {
+    public sealed class AsyncYesNoMessage : AsyncRequestMessage<bool> {
 
         public AsyncYesNoMessage(string text) {
             Text = text;
