@@ -6,12 +6,8 @@ using MvvmDemo.Messages;
 using MvvmDemo.Models;
 using MvvmDemo.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Resources.Core;
 
 namespace MvvmDemo.ViewModels {
     public class MainViewModel {
