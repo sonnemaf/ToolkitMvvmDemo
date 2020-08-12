@@ -14,7 +14,6 @@ namespace MvvmDemo.ViewModels {
 
         public static MainViewModel Current => Ioc.Default.GetService<MainViewModel>();
 
-
         private readonly ILogger _logger;
 
         public ObservableCollection<Employee> Employees { get; } = new ObservableCollection<Employee>();
