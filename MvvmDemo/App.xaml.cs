@@ -1,27 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
-using MvvmDemo.Messages;
 using MvvmDemo.Services;
 using MvvmDemo.ViewModels;
 using MvvmDemo.Views.Pages;
+using MvvmDemoLibrary.Services;
+using MvvmDemoUWP.Recipients;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace MvvmDemo {
@@ -29,6 +17,8 @@ namespace MvvmDemo {
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
     sealed partial class App : Application {
+
+
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -38,24 +28,15 @@ namespace MvvmDemo {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
-            Ioc.Default.ConfigureServices(services => {
-                services.AddSingleton<ILogger, DebugLogger>();
-                services.AddSingleton<MainViewModel>();
-            });
+            var messenger = WeakReferenceMessenger.Default;
 
-            Messenger.Default.Register<AsyncYesNoMessage>(this, m => {
+            Ioc.Default = new ServiceCollection()
+               .AddSingleton<IMessenger>(messenger)
+               .AddSingleton<ILogger, DebugLogger>()
+               .AddSingleton<MainViewModel>()
+               .BuildServiceProvider();
 
-                async Task<bool> GetResult() {
-                    var md = new MessageDialog(m.Text);
-                    bool result = false;
-                    md.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler((cmd) => result = true)));
-                    md.Commands.Add(new UICommand("No"));
-                    await md.ShowAsync();
-                    return result;
-                }
-
-                m.Reply(GetResult());
-            });
+            messenger.Register(new AsyncYesNoMessageRecipient());
         }
 
         /// <summary>

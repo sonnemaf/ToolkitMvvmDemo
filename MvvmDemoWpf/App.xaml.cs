@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using MvvmDemo.Messages;
 using MvvmDemo.Services;
 using MvvmDemo.ViewModels;
+using MvvmDemoLibrary.Services;
+using MvvmDemoWPF.Recipients;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -19,21 +20,18 @@ namespace MvvmDemoWpf {
     public partial class App : Application {
 
         public App() {
-            Ioc.Default.ConfigureServices(services => {
-                services.AddSingleton<ILogger, DebugLogger>();
-                services.AddSingleton<MainViewModel>();
-            });
 
-            Messenger.Default.Register<AsyncYesNoMessage>(this, m => {
+            var messenger = WeakReferenceMessenger.Default;
 
-                Task<bool> GetResult() {
-                    var result = MessageBox.Show(m.Text, "Confirm", MessageBoxButton.YesNo );
-                    return Task.FromResult(result == MessageBoxResult.Yes);
-                }
+            Ioc.Default = new ServiceCollection()
+               .AddSingleton<IMessenger>(messenger)
+               .AddSingleton<ILogger, DebugLogger>()
+               .AddSingleton<MainViewModel>()
+               .BuildServiceProvider();
 
-                m.Reply(GetResult());
-            });
+            messenger.Register(new AsyncYesNoMessageRecipient());
         }
 
+        
     }
 }

@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmDemoUWP", "MvvmDemo\MvvmDemoUWP.csproj", "{B452971D-7D9D-487B-89B3-C51DCF5D35A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmDemoWPF", "MvvmDemoWpf\MvvmDemoWPF.csproj", "{9E77271D-1F21-445B-A94A-FFC43CE38882}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvvmDemoWPF", "MvvmDemoWpf\MvvmDemoWPF.csproj", "{9E77271D-1F21-445B-A94A-FFC43CE38882}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmDemoLibrary", "MvvmDemoLibrary\MvvmDemoLibrary.csproj", "{18F24147-D592-4735-B3EC-BB0415B0D5DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvvmDemoLibrary", "MvvmDemoLibrary\MvvmDemoLibrary.csproj", "{18F24147-D592-4735-B3EC-BB0415B0D5DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmDemoTest", "MvvmDemoTest\MvvmDemoTest.csproj", "{627BE86C-C350-4E24-9573-1F5A6B8FB53E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvvmDemoTest", "MvvmDemoTest\MvvmDemoTest.csproj", "{627BE86C-C350-4E24-9573-1F5A6B8FB53E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +26,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B452971D-7D9D-487B-89B3-C51DCF5D35A4}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{B452971D-7D9D-487B-89B3-C51DCF5D35A4}.Debug|Any CPU.Build.0 = Debug|x86
+		{B452971D-7D9D-487B-89B3-C51DCF5D35A4}.Debug|Any CPU.Deploy.0 = Debug|x86
 		{B452971D-7D9D-487B-89B3-C51DCF5D35A4}.Debug|ARM.ActiveCfg = Debug|ARM
 		{B452971D-7D9D-487B-89B3-C51DCF5D35A4}.Debug|ARM.Build.0 = Debug|ARM
 		{B452971D-7D9D-487B-89B3-C51DCF5D35A4}.Debug|ARM.Deploy.0 = Debug|ARM
