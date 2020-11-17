@@ -5,7 +5,13 @@ using System.Windows;
 
 namespace MvvmDemoWPF.Recipients {
 
-    class AsyncYesNoMessageRecipient : IRecipient<AsyncYesNoMessage> {
+    sealed class AsyncYesNoMessageRecipient : IRecipient<AsyncYesNoMessage> {
+
+        public static AsyncYesNoMessageRecipient Current { get; } = new AsyncYesNoMessageRecipient();
+
+        private AsyncYesNoMessageRecipient() {
+            // Singleton, to avoid GC.Collect when using it with a WeakReferenceMessenger
+        }
 
         public void Receive(AsyncYesNoMessage message) {
             var result = MessageBox.Show(message.Text, "Confirm", MessageBoxButton.YesNo);

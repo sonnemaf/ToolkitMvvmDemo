@@ -23,7 +23,7 @@ namespace MvvmDemoWpf {
                .AddSingleton<MainViewModel>()
                .BuildServiceProvider());
 
-            messenger.Register(new AsyncYesNoMessageRecipient());
+            messenger.Register(AsyncYesNoMessageRecipient.Current);
         }
 
         

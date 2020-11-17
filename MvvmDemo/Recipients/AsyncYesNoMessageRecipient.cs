@@ -8,6 +8,12 @@ namespace MvvmDemoUWP.Recipients {
 
     class AsyncYesNoMessageRecipient : IRecipient<AsyncYesNoMessage> {
 
+        public static AsyncYesNoMessageRecipient Current { get; } = new AsyncYesNoMessageRecipient();
+
+        private AsyncYesNoMessageRecipient() {
+            // Singleton, to avoid GC.Collect when using it with a WeakReferenceMessenger
+        }
+
         public void Receive(AsyncYesNoMessage message) {
 
             async Task<bool> GetResult() {
