@@ -7,9 +7,9 @@
         xmlns:vm="clr-namespace:MvvmDemo.ViewModels;assembly=MvvmDemoLibrary"
         Title="MainWindow"
         Width="800"
-        FontSize="20"
         Height="450"
         DataContext="{x:Static vm:MainViewModel.Current}"
+        FontSize="20"
         mc:Ignorable="d">
     <Grid Margin="4">
         <Grid.RowDefinitions>
@@ -17,24 +17,25 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <Button Command="{Binding RaiseSalaryCommand, Mode=OneTime}"
+            <Button Margin="4,0"
+                    Padding="4"
+                    Command="{Binding RaiseSalaryCommand, Mode=OneTime}"
                     CommandParameter="{Binding ElementName=listViewEmployees, Path=SelectedItem, Mode=OneWay}"
-                    Margin="4,0"
                     Content="Raise Salary" />
             <Button Command="{Binding DeleteCommand, Mode=OneTime}"
                     CommandParameter="{Binding ElementName=listViewEmployees, Path=SelectedItem, Mode=OneWay}"
                     Content="Delete" />
         </StackPanel>
         <ListBox x:Name="listViewEmployees"
-                 Margin="4"
-                 SelectionChanged="ListViewEmployees_SelectionChanged"
                  Grid.Row="1"
-                 ItemsSource="{Binding Employees, Mode=OneTime}">
+                 Margin="4"
+                 Padding="4"
+                 ItemsSource="{Binding Employees, Mode=OneTime}"
+                 SelectionChanged="ListViewEmployees_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="0,4">
-                        <TextBlock FontWeight="Bold"
-                                   Text="{Binding Name, Mode=OneTime}" />
+                        <TextBlock FontWeight="Bold" Text="{Binding Name, Mode=OneTime}" />
                         <TextBlock Text="{Binding Salary, Mode=OneWay}" />
                     </StackPanel>
                 </DataTemplate>

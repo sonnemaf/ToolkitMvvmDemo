@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using MvvmDemo.Services;
 using MvvmDemo.ViewModels;
 using MvvmDemo.Views.Pages;
-using MvvmDemoLibrary.Services;
 using MvvmDemoUWP.Recipients;
 using System;
 using Windows.ApplicationModel;
@@ -30,11 +30,11 @@ namespace MvvmDemo {
 
             var messenger = WeakReferenceMessenger.Default;
 
-            Ioc.Default = new ServiceCollection()
+            Ioc.Default.ConfigureServices(new ServiceCollection()
                .AddSingleton<IMessenger>(messenger)
                .AddSingleton<ILogger, DebugLogger>()
                .AddSingleton<MainViewModel>()
-               .BuildServiceProvider();
+               .BuildServiceProvider());
 
             messenger.Register(new AsyncYesNoMessageRecipient());
         }
