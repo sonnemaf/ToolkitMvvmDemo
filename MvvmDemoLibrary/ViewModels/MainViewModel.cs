@@ -45,6 +45,7 @@ namespace MvvmDemo.ViewModels {
         private void OnRaiseSalary(Employee emp) {
             _logger.Log($"OnRaiseSalary: {emp.Name}");
             emp.Salary += 100;
+            RaiseSalaryCommand.NotifyCanExecuteChanged();
         }
     }
 

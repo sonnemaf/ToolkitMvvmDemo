@@ -25,9 +25,10 @@ namespace MvvmDemoWpf.Views.Windows {
         }
 
         private void ListViewEmployees_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            var vm = MainViewModel.Current;
-            vm.RaiseSalaryCommand.NotifyCanExecuteChanged();
-            vm.DeleteCommand.NotifyCanExecuteChanged();
+            // Replaced by the MvvmHelper.NotifyCommandParameterChanges attached property
+            //var vm = MainViewModel.Current;
+            //vm.RaiseSalaryCommand.NotifyCanExecuteChanged();
+            //vm.DeleteCommand.NotifyCanExecuteChanged();
         }
     }
 }
