@@ -2,7 +2,9 @@
 using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace MvvmDemoWPF.Views.Windows {
@@ -26,28 +28,60 @@ namespace MvvmDemoWPF.Views.Windows {
         /// <param name="d">FrameworkElement that changed its NotifyCommandParameterChanges attached property.</param>
         /// <param name="e">DependencyPropertyChangedEventArgs with the new and old value.</param> 
         private static void OnNotifyCommandParameterChangesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-            if (d is ICommandSource source) {
-                var value = (bool)e.NewValue;
-                if (source is ButtonBase btn) {
-                    var pd = DependencyPropertyDescriptor.FromProperty(ButtonBase.CommandParameterProperty, typeof(ButtonBase));
+            if (d is FrameworkElement frameworkElement) {
+                DependencyPropertyDescriptor pd;
 
-                    RoutedEventHandler unloaded = (s, e) => {
-                        pd.RemoveValueChanged(btn, OnCommandParameterChanged);
-                    };
-
-                    if (value) {
-                        pd.AddValueChanged(btn, OnCommandParameterChanged);
-                        btn.Unloaded += unloaded;
-                    } else {
-                        pd.RemoveValueChanged(btn, OnCommandParameterChanged);
-                        btn.Unloaded -= unloaded;
-                    }
+                switch (frameworkElement) {
+                    case ButtonBase _:
+                        pd = DependencyPropertyDescriptor.FromProperty(ButtonBase.CommandParameterProperty, typeof(ButtonBase));
+                        break;
+                    case MenuItem _:
+                        pd = DependencyPropertyDescriptor.FromProperty(MenuItem.CommandParameterProperty, typeof(MenuItem));
+                        break;
+                    default:
+                        return;
                 }
+
+                RoutedEventHandler unloaded = (s, e) => {
+                    pd.RemoveValueChanged(frameworkElement, OnCommandParameterChanged);
+                };
+
+                if ((bool)e.NewValue) {
+                    pd.AddValueChanged(frameworkElement, OnCommandParameterChanged);
+                    frameworkElement.Unloaded += unloaded;
+                } else {
+                    pd.RemoveValueChanged(frameworkElement, OnCommandParameterChanged);
+                    frameworkElement.Unloaded -= unloaded;
+                }
+
+            } else if (d is FrameworkContentElement frameworkContentElement) {
+                DependencyPropertyDescriptor pd;
+
+                switch (frameworkContentElement) {
+                    case Hyperlink hl:
+                        pd = DependencyPropertyDescriptor.FromProperty(Hyperlink.CommandParameterProperty, typeof(Hyperlink));
+                        break;
+                    default:
+                        return;
+                }
+
+                RoutedEventHandler unloaded = (s, e) => {
+                    pd.RemoveValueChanged(frameworkContentElement, OnCommandParameterChanged);
+                };
+
+                if ((bool)e.NewValue) {
+                    pd.AddValueChanged(frameworkContentElement, OnCommandParameterChanged);
+                    frameworkContentElement.Unloaded += unloaded;
+                } else {
+                    pd.RemoveValueChanged(frameworkContentElement, OnCommandParameterChanged);
+                    frameworkContentElement.Unloaded -= unloaded;
+                }
+
             }
         }
 
         private static void OnCommandParameterChanged(object sender, EventArgs e) {
-            ((sender as ButtonBase).Command as IRelayCommand)?.NotifyCanExecuteChanged();
+            ((sender as ICommandSource).Command as IRelayCommand)?.NotifyCanExecuteChanged();
         }
 
         /// <summary>
