@@ -1,6 +1,5 @@
 ﻿using Microsoft.Toolkit.Mvvm.Messaging;
 using MvvmDemo.Messages;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MvvmDemoWPF.Recipients {

@@ -22,11 +22,13 @@ namespace MvvmDemoWPF.Views.Windows {
                                                 typeof(MvvmHelper),
                                                 new PropertyMetadata(default(bool), OnNotifyCommandParameterChangesChanged));
 
+
         /// <summary>
         /// NotifyCommandParameterChanges changed handler. 
         /// </summary>
         /// <param name="d">FrameworkElement that changed its NotifyCommandParameterChanges attached property.</param>
         /// <param name="e">DependencyPropertyChangedEventArgs with the new and old value.</param> 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0039:Use local function", Justification = "<Pending>")]
         private static void OnNotifyCommandParameterChangesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             if (d is FrameworkElement frameworkElement) {
                 DependencyPropertyDescriptor pd;

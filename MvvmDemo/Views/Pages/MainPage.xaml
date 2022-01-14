@@ -13,10 +13,16 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <CommandBar DefaultLabelPosition="Right">
+            <AppBarButton Command="{x:Bind ViewModel.LoadCommand}"
+                          Icon="Download"
+                          Label="Load" />
             <AppBarButton Command="{x:Bind ViewModel.RaiseSalaryCommand}"
                           CommandParameter="{x:Bind listViewEmployees.SelectedItem, Mode=OneWay}"
                           Icon="Go"
                           Label="Raise Salary" />
+            <AppBarButton Command="{x:Bind ViewModel.AddCommand}"
+                          Icon="Add"
+                          Label="Add" />
             <AppBarButton Command="{x:Bind ViewModel.DeleteCommand}"
                           CommandParameter="{x:Bind listViewEmployees.SelectedItem, Mode=OneWay}"
                           Icon="Delete"
@@ -27,12 +33,18 @@
                   ItemsSource="{x:Bind ViewModel.Employees}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:Employee">
-                    <StackPanel Margin="0,4" Spacing="4">
-                        <TextBlock FontWeight="Bold" Text="{x:Bind Name}" />
+                    <StackPanel Margin="0,4"
+                                Spacing="4">
+                        <TextBlock FontWeight="Bold"
+                                   Text="{x:Bind Name}" />
                         <TextBlock Text="{x:Bind Salary, Mode=OneWay}" />
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <ProgressRing Grid.Row="1"
+                      Height="200"
+                      Width="200"
+                      IsActive="{x:Bind ViewModel.LoadCommand.IsRunning, Mode=OneWay}" />
     </Grid>
 </Page>

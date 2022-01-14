@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:MvvmDemoWPF.Views.Windows"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tmwi="clr-namespace:Microsoft.Toolkit.Mvvm.Wpf.Input"
         xmlns:vm="clr-namespace:MvvmDemo.ViewModels;assembly=MvvmDemoLibrary"
         Title="MainWindow"
         Width="800"
@@ -16,32 +17,48 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Margin="4,0"
+                    Orientation="Horizontal">
+            <Button Command="{Binding LoadCommand, Mode=OneTime}"
+                    Content="Load" />
             <Button Margin="4,0"
-                    Padding="4"
-                    local:MvvmHelper.NotifyCommandParameterChanges="true"
+                    tmwi:RelayCommandExtensions.IsCommandUpdateEnabled="true"
                     Command="{Binding RaiseSalaryCommand, Mode=OneTime}"
-                    CommandParameter="{Binding ElementName=listViewEmployees, Path=SelectedItem, Mode=OneWay}"
+                    CommandParameter="{Binding SelectedItem, ElementName=listBoxEmployees, Mode=OneWay}"
                     Content="Raise Salary" />
-            <Button local:MvvmHelper.NotifyCommandParameterChanges="true"
+            <Button Command="{Binding AddCommand, Mode=OneTime}"
+                    Content="Add" />
+            <Button Margin="4,0"
+                    tmwi:RelayCommandExtensions.IsCommandUpdateEnabled="true"
                     Command="{Binding DeleteCommand, Mode=OneTime}"
-                    CommandParameter="{Binding ElementName=listViewEmployees, Path=SelectedItem, Mode=OneWay}"
+                    CommandParameter="{Binding SelectedItem, ElementName=listBoxEmployees, Mode=OneWay}"
                     Content="Delete" />
         </StackPanel>
-        <ListBox x:Name="listViewEmployees"
+        <ListBox x:Name="listBoxEmployees"
                  Grid.Row="1"
                  Margin="4"
                  Padding="4"
-                 ItemsSource="{Binding Employees, Mode=OneTime}"
+                 d:ItemsSource="{d:SampleData ItemCount=5}"
+                 ItemsSource="{Binding Employees}"
                  SelectionChanged="ListViewEmployees_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="0,4">
-                        <TextBlock FontWeight="Bold" Text="{Binding Name, Mode=OneTime}" />
+                        <TextBlock FontWeight="Bold"
+                                   Text="{Binding Name, Mode=OneTime}" />
                         <TextBlock Text="{Binding Salary, Mode=OneWay}" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
+        <TextBlock Grid.Row="1"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="50"
+                   Foreground="Red"
+                   Text="Busy"
+                   Visibility="{Binding Path=LoadCommand.IsRunning, Converter={StaticResource TrueToVisibleConverter}}" />
+
     </Grid>
 </Window>

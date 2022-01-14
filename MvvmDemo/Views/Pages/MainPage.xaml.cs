@@ -12,7 +12,7 @@ namespace MvvmDemo.Views.Pages {
 
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         internal MainViewModel ViewModel => MainViewModel.Current;

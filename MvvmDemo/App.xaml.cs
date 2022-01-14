@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using MvvmDemo.Services;
@@ -18,23 +19,25 @@ namespace MvvmDemo {
     /// </summary>
     sealed partial class App : Application {
 
-
-
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App() {
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            InitializeComponent();
+            Suspending += OnSuspending;
 
             var messenger = WeakReferenceMessenger.Default;
 
             Ioc.Default.ConfigureServices(new ServiceCollection()
+               .AddLogging(builder => {
+                   builder.AddDebug();
+               })
                .AddSingleton<IMessenger>(messenger)
-               .AddSingleton<ILogger, DebugLogger>()
+               .AddSingleton<IEmployeeRepository, EmployeeRepository>()
                .AddSingleton<MainViewModel>()
                .BuildServiceProvider());
+
 
             messenger.Register(AsyncYesNoMessageRecipient.Current);
         }
@@ -47,7 +50,7 @@ namespace MvvmDemo {
         protected override void OnLaunched(LaunchActivatedEventArgs e) {
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (!(Window.Current.Content is Frame rootFrame)) {
+            if (Window.Current.Content is not Frame rootFrame) {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 

@@ -3,10 +3,10 @@ using MvvmDemo.Messages;
 
 namespace MvvmDemoTest.Recipients {
 
-    class AsyncYesNoMessageRecipient : IRecipient<AsyncYesNoMessage> {
+    class FakeAsyncYesNoMessageRecipient : IRecipient<AsyncYesNoMessage> {
 
-        public AsyncYesNoMessageRecipient(bool reply) {
-            this.Reply = reply;
+        public FakeAsyncYesNoMessageRecipient(bool reply) {
+            Reply = reply;
         }
 
         public bool Reply { get; }
