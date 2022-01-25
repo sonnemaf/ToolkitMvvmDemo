@@ -14,7 +14,10 @@ namespace MvvmDemoTest {
     public class MainViewModelTest {
 
         private static MainViewModel CreateViewModel() {
-            return new MainViewModel(NullLogger<MainViewModel>.Instance, WeakReferenceMessenger.Default, new FakeEmployeeRepository());
+            return new MainViewModel(
+                NullLogger<MainViewModel>.Instance, 
+                WeakReferenceMessenger.Default, 
+                new FakeEmployeeRepository());
         }
 
         [Fact]

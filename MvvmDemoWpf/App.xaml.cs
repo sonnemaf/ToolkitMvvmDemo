@@ -6,6 +6,7 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 using MvvmDemo.Services;
 using MvvmDemo.ViewModels;
 using MvvmDemoWPF.Recipients;
+using System.Net.Http;
 using System.Windows;
 
 namespace MvvmDemoWpf {
@@ -23,16 +24,19 @@ namespace MvvmDemoWpf {
                .AddLogging(builder => {
                    builder.AddDebug();
                })
+               .AddSingleton<HttpClient>()
                .AddSingleton<IMessenger>(messenger)
                .AddSingleton<IEmployeeRepository, EmployeeRepository>()
                .AddSingleton<MainViewModel>()
                .BuildServiceProvider());
 
-            // TODO: Add Debug logger
-
             messenger.Register(AsyncYesNoMessageRecipient.Current);
+
+            MainViewModel.Current.ErrorOccurred += Current_ErrorOccurred;
         }
 
-        
+        private void Current_ErrorOccurred(object sender, MvvmDemo.Messages.ErrorOccuredEventArgs e) {
+            MessageBox.Show(e.Message);
+        }
     }
 }

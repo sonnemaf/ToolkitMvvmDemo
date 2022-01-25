@@ -2,13 +2,16 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using MvvmDemo.Messages;
 using MvvmDemo.Services;
 using MvvmDemo.ViewModels;
 using MvvmDemo.Views.Pages;
 using MvvmDemoUWP.Recipients;
 using System;
+using System.Net.Http;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -33,13 +36,21 @@ namespace MvvmDemo {
                .AddLogging(builder => {
                    builder.AddDebug();
                })
+               .AddSingleton<HttpClient>()
                .AddSingleton<IMessenger>(messenger)
                .AddSingleton<IEmployeeRepository, EmployeeRepository>()
                .AddSingleton<MainViewModel>()
                .BuildServiceProvider());
 
-
             messenger.Register(AsyncYesNoMessageRecipient.Current);
+
+            MainViewModel.Current.ErrorOccurred += Current_ErrorOccurred;
+
+        }
+
+        private void Current_ErrorOccurred(object sender, ErrorOccuredEventArgs e) {
+            var md = new MessageDialog(e.Message);
+            _ = md.ShowAsync();
         }
 
         /// <summary>
