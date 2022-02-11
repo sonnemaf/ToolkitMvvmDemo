@@ -1,4 +1,4 @@
-﻿using Microsoft.Toolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using MvvmDemo.Messages;
 
 namespace MvvmDemoTest.Recipients {

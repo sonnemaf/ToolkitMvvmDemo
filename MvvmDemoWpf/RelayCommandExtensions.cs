@@ -5,9 +5,9 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
-using Microsoft.Toolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Input;
 
-namespace Microsoft.Toolkit.Mvvm.Wpf.Input {
+namespace CommunityToolkit.Mvvm.Wpf.Input {
     /// <summary>
     /// A helper class with attached properties to interact with <see cref="IRelayCommand"/> instances on WPF.
     /// The attached properties in <see cref="RelayCommandExtensions"/> allow to enable support for the

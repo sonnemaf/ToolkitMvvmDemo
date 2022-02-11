@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:MvvmDemoWPF.Views.Windows"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:tmwi="clr-namespace:Microsoft.Toolkit.Mvvm.Wpf.Input"
+        xmlns:tmwi="clr-namespace:CommunityToolkit.Mvvm.Wpf.Input"
         xmlns:vm="clr-namespace:MvvmDemo.ViewModels;assembly=MvvmDemoLibrary"
         Title="MainWindow"
         Width="800"

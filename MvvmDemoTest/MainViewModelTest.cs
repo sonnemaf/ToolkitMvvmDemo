@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Logging.Abstractions;
-using Microsoft.Toolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging;
 using MvvmDemo.Messages;
 using MvvmDemo.Services;
 using MvvmDemo.ViewModels;
